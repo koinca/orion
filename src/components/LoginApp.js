@@ -16,12 +16,12 @@ const Welcome = ({user, onSignOut})=> {
 
 const Auth = {
   isAuthenticated: false,
-  authenticate(cb) {
+  authenticate(username, pwd, cb) {
       this.isAuthenticated = true;
       //setTimeout(cb, 100); // fake async
       let opts = {
-        "email": "peter@klaven",
-        "password": "cityslicka"
+        "email": username,
+        "password": pwd
       };
       fetch('https://reqres.in/api/login', {
           method: 'post',
@@ -94,7 +94,7 @@ class LoginApp extends React.Component {
   signIn(username, password) {
     // This is where you would call Firebase, an API etc...
     // calling setState will re-render the entire app (efficiently!)
-    Auth.authenticate(() => {
+    Auth.authenticate(username, password, () => {
         this.setState({
           user: {
             username,

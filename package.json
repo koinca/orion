@@ -29,6 +29,7 @@
     "optimize-css-assets-webpack-plugin": "^4.0.0",
     "react-intl": "^2.4.0",
     "react-router-dom": "^4.2.2",
+    "react-virtualized": "^9.18.5",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
     "uglifyjs-webpack-plugin": "^1.2.4",
