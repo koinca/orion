@@ -1,22 +1,22 @@
 import React from "react";
 import { render } from 'react-dom';
 import { AutoSizer, List } from 'react-virtualized';
-import data from './../data/listdata';
 
 class Books extends React.Component {
     constructor() {
         super();
+        this.state = {listData: []};
     }
 
-
     componentDidMount() {
+       let me = this;
         fetch("https://jsonplaceholder.typicode.com/users")
         .then(res => res.json())
         .then(
           (result) => {
-            this.setState({
+            me.setState({
               isLoaded: true,
-              data: result
+              listData: result
             });
           },
           // Note: it's important to handle errors here
@@ -35,11 +35,12 @@ class Books extends React.Component {
       if (isScrolling) {
         return <div className="cell" style={style} />;
       } else {
-        const obj = data[index];
+        const obj = this.state.listData[index];
         return (
           <div className="cell" style={style}>
             <img src={obj.image} />
             <span>{obj.name}</span>
+            <span>{obj.phone}</span>
           </div>
         )
       }
@@ -48,6 +49,7 @@ class Books extends React.Component {
     render() {
         return (
           <div>
+          <h2>Getting records #{this.state.listData.length}.</h2>
               <AutoSizer disableHeight>
                {({width}) => (
                  <List
@@ -55,8 +57,8 @@ class Books extends React.Component {
                    overscanRowCount={10}
                    width={width}
                    rowHeight={70}
-                   rowCount={data.length}
-                   rowRenderer={this.rowRenderer}
+                   rowCount={this.state.listData.length}
+                   rowRenderer={this.rowRenderer.bind(this)}
                  />
                )}
               </AutoSizer>
