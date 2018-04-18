@@ -14,6 +14,43 @@ const Welcome = ({user, onSignOut})=> {
   )
 }
 
+const Auth = {
+  isAuthenticated: false,
+  authenticate(cb) {
+      this.isAuthenticated = true;
+      //setTimeout(cb, 100); // fake async
+      let opts = {
+        "email": "peter@klaven",
+        "password": "cityslicka"
+      };
+      fetch('https://reqres.in/api/login', {
+          method: 'post',
+          headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(opts)
+      }).then(function(response) {
+          return response.json();
+      }).then(function(data) {
+          let hasError = Object.keys(data).indexOf('error')>-1;
+          if(!hasError) {
+            cb();
+            console.log('user logged in');
+          } else {
+            console.log('cannot login: ' + data.error);
+          }
+      }).catch(function(error) {
+        console.log('Something wrong:'+error);
+      });
+  },
+  signout(cb) {
+    this.isAuthenticated = false;
+    setTimeout(cb, 100);
+  }
+};
+
+
 class LoginForm extends React.Component {
 
   // Using a class based component here because we're accessing DOM refs
@@ -57,12 +94,14 @@ class LoginApp extends React.Component {
   signIn(username, password) {
     // This is where you would call Firebase, an API etc...
     // calling setState will re-render the entire app (efficiently!)
-    this.setState({
-      user: {
-        username,
-        password,
-      }
-    })
+    Auth.authenticate(() => {
+        this.setState({
+          user: {
+            username,
+            password,
+          }
+        })
+    });
   }
 
   signOut() {
