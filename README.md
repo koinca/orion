@@ -8,6 +8,7 @@ bootstrap 4
 react-intl
 react-router
 react-virtualized
+react-vis
 
 To get going, just
 npm install

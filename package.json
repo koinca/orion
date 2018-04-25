@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "react": "^16.3.1",
-    "react-dom": "^16.3.1"
+    "react-dom": "^16.3.1",
+    "react-vis": "^1.9.2"
   }
 }
