@@ -1,5 +1,16 @@
 import React from "react";
 import {XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries} from 'react-vis';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
+import Button from '@material-ui/core/Button';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: purple[500] }, // Purple and green play nicely together.
+    secondary: { main: '#11cb5f' }, // This is just green.A700 as hex.
+  },
+});
+
 
 class Hello extends React.Component {
     constructor() {
@@ -34,6 +45,7 @@ class Hello extends React.Component {
 
     render() {
         return (
+          <MuiThemeProvider theme={theme}>
           <div>Hello
             <XYPlot
                 width={300}
@@ -45,7 +57,13 @@ class Hello extends React.Component {
                 <XAxis />
                 <YAxis />
             </XYPlot>
+                <Button variant="contained" color="secondary">
+                  Hello World
+                </Button>
+                <Button color="primary">Primary</Button>
+        <Button color="secondary">Secondary</Button>
           </div>
+          </MuiThemeProvider>
         );
     }
 }

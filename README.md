@@ -9,7 +9,11 @@ react-intl
 react-router
 react-virtualized
 react-vis
+material-ui/core
 
 To get going, just
-npm install
+yarn or npm install
 npm start
+
+To build
+npm run build
